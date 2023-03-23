@@ -5,15 +5,14 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 function NameAccuracy(props) {
-  console.log("22222222",props.data);
+
   const [case_perc,setCase] = React.useState()
   const [noncase_perc,setNonCase] = React.useState()
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/name_match/${props.givenname}/${props.data.id_name}`).then((response)=>{
+    axios.get(`http://127.0.0.1:8000/api/name_match/${props.givenname}/${props.data && props.data.id_name}`).then((response)=>{
     setCase(response.data.case_percentage)  
     setNonCase(response.data.noncase_percentage)
-    // console.log('1111111111111',response.data.case_percentage);
-    //   // SetData(response.data.message)
+ 
   })
   }, [case_perc,noncase_perc])
   
@@ -29,7 +28,7 @@ function NameAccuracy(props) {
           <br></br>
         <div >
           <span style={{fontWeight:"bold"}}>Name Extracted From ID&nbsp;&nbsp;:</span>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.data.id_name}</span>
+          {props.data && <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.data.id_name}</span>}
         </div>
 
         <br></br>
